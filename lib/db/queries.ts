@@ -520,6 +520,7 @@ export async function getMessageCountByUserId({
 
     return stats?.count ?? 0;
   } catch (error) {
+    console.warn('Failed to get message count by user id', error);
     throw new ChatSDKError(
       'bad_request:database',
       'Failed to get message count by user id',
