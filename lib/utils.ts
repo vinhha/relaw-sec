@@ -8,7 +8,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { DBMessage, Document } from '@/lib/db/schema';
 import { ChatSDKError, type ErrorCode } from './errors';
-import type { ChatMessage, ChatTools, CustomUIDataTypes } from './types';
+import type { ChatMessage, CustomUIDataTypes } from './types';
 import { formatISO } from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
@@ -101,7 +101,8 @@ export function convertToUIMessages(messages: DBMessage[]): ChatMessage[] {
   return messages.map((message) => ({
     id: message.id,
     role: message.role as 'user' | 'assistant' | 'system',
-    parts: message.parts as UIMessagePart<CustomUIDataTypes, ChatTools>[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    parts: message.parts as UIMessagePart<CustomUIDataTypes, any>[],
     metadata: {
       createdAt: formatISO(message.createdAt),
     },
